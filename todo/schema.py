@@ -2,8 +2,10 @@ import graphene
 from graphene_django import DjangoObjectType
 # import Todo Model in our schema
 from .models import Todo, Like
-# like Class
+# import User Model for CreateLike
 from user.schema import UserType
+# Q object for complex queries
+from django.db.models import Q
 
 
 class TodoType(DjangoObjectType):
@@ -20,10 +22,18 @@ class LikeType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     # create todo query type
-    todo_field = graphene.List(TodoType)
+    todo_field = graphene.List(TodoType, search=graphene.String())
     like_field = graphene.List(LikeType)
 
-    def resolve_todo_field(self, info):
+    def resolve_todo_field(self, info, search=None):
+        if search:
+            filter = (
+                Q(title__icontains=search) |
+                Q(description__icontains=search) |
+                Q(url__icontains=search) |
+                Q(posted_by__username__icontains=search)
+            )
+            return Todo.objects.filter(filter)
         # list all todo
         return Todo.objects.all()
 

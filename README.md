@@ -10,6 +10,9 @@
 -   Graphene-Django - [documentation](https://docs.graphene-python.org/projects/django/en/latest/)
 -   JWT login [documentation](https://github.com/flavors/django-graphql-jwt)
 -   Cors headers
+-   Todo CRUD
+-   Like - User Voting
+-   Search Feature
 
 ## Installation
 
@@ -147,10 +150,10 @@ python manage.py runserver
 
 ## TODO
 
+    - [X] Add a todo search feature
     - [] Add Tags assigned to Todo
     - [] Add exisiting tags to todo
     - [] Filter Todo list by Tags
-    - [] Add a todo search feature
     - [] Add a line graph of todo count and completed todo per day
     - [] Manage role who can view others todos
     - [] Dockerize this app
