@@ -1,6 +1,7 @@
 from django.db import models
 # reference user model to todo model
 from django.contrib.auth import get_user_model
+from django.db.models.fields import related
 # Create your models here.
 
 
@@ -15,4 +16,18 @@ class Todo(models.Model):
         get_user_model(),
         null=True,
         on_delete=models.CASCADE  # user/todo cascade delete
+    )
+
+
+class Like(models.Model):
+    # many users to many todo relationship
+    user_field = models.ForeignKey(
+        get_user_model(),
+        null=True,
+        on_delete=models.CASCADE
+    )
+    todo_field = models.ForeignKey(
+        'todo.Todo',
+        related_name='like_field',
+        on_delete=models.CASCADE
     )

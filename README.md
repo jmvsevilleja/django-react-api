@@ -153,3 +153,4 @@ python manage.py runserver
     - [] Add a todo search feature
     - [] Add a line graph of todo count and completed todo per day
     - [] Manage role who can view others todos
+    - [] Dockerize this app

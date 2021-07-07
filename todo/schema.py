@@ -1,7 +1,9 @@
 import graphene
 from graphene_django import DjangoObjectType
 # import Todo Model in our schema
-from .models import Todo
+from .models import Todo, Like
+# like Class
+from user.schema import UserType
 
 
 class TodoType(DjangoObjectType):
@@ -10,17 +12,28 @@ class TodoType(DjangoObjectType):
         model = Todo
 
 
+class LikeType(DjangoObjectType):
+    # initialize Like Object Type
+    class Meta:
+        model = Like
+
+
 class Query(graphene.ObjectType):
     # create todo query type
-    todo_fields = graphene.List(TodoType)
+    todo_field = graphene.List(TodoType)
+    like_field = graphene.List(LikeType)
 
-    def resolve_todo_fields(self, info):
+    def resolve_todo_field(self, info):
         # list all todo
         return Todo.objects.all()
 
+    def resolve_like_field(self, info):
+        # list all likes
+        return Like.objects.all()
+
 
 class CreateTodo(graphene.Mutation):
-    todo_fields = graphene.Field(TodoType)
+    todo_field = graphene.Field(TodoType)
 
     class Arguments:
         title = graphene.String()
@@ -43,11 +56,11 @@ class CreateTodo(graphene.Mutation):
                          completed=completed,
                          posted_by=user_data)
         todo_data.save()
-        return CreateTodo(todo_fields=todo_data)
+        return CreateTodo(todo_field=todo_data)
 
 
 class UpdateTodo(graphene.Mutation):
-    todo_fields = graphene.Field(TodoType)
+    todo_field = graphene.Field(TodoType)
 
     class Arguments:
         todo_id = graphene.Int(required=True)
@@ -70,7 +83,7 @@ class UpdateTodo(graphene.Mutation):
         todo_data.completed = completed
 
         todo_data.save()
-        return UpdateTodo(todo_fields=todo_data)
+        return UpdateTodo(todo_field=todo_data)
 
 
 class DeleteTodo(graphene.Mutation):
@@ -91,7 +104,34 @@ class DeleteTodo(graphene.Mutation):
         return DeleteTodo(todo_field=todo_id)
 
 
+class CreateLike(graphene.Mutation):
+    user_field = graphene.Field(UserType)
+    todo_field = graphene.Field(TodoType)
+
+    class Arguments:
+        todo_id = graphene.Int(required=True)
+
+    def mutate(self, info, todo_id):
+        user_data = info.context.user
+
+        if user_data.is_anonymous:
+            raise Exception('Login required')
+
+        user_data = info.context.user
+        todo_data = Todo.objects.get(id=todo_id)
+
+        if not todo_data:
+            raise Exception('Todo not found')
+
+        Like.objects.create(
+            user_field=user_data,
+            todo_field=todo_data
+        )
+        return CreateLike(user_field=user_data, todo_field=todo_data)
+
+
 class Mutation(graphene.ObjectType):
     create_todo = CreateTodo.Field()
     update_todo = UpdateTodo.Field()
     delete_todo = DeleteTodo.Field()
+    create_like = CreateLike.Field()
