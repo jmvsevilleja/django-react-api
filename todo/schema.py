@@ -148,9 +148,6 @@ class DeleteLike(graphene.Mutation):
         user_data = info.context.user
         todo_data = Todo.objects.get(id=todo_id)
 
-        if todo_data.posted_by != user_data:
-            raise Exception('Not permitted to unlike')
-
         Like.objects.filter(
             user_field=user_data,
             todo_field=todo_data
