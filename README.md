@@ -144,7 +144,11 @@ python manage.py runserver
 
 ## GRAPHQL
 
--   [API Client](https://insomnia.rest/download)
+-   [API Client](https://insomnia.rest/download) - Leading Open Source API Client, and Collaborative API Design Platform for REST, SOAP, GraphQL, and GRPC.
+
+## HEROKU
+
+-   [Deployment Guide](https://devcenter.heroku.com/articles/django-app-configuration) - Heroku is a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud.
 
 ---
 
