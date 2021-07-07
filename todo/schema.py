@@ -87,7 +87,7 @@ class UpdateTodo(graphene.Mutation):
 
 
 class DeleteTodo(graphene.Mutation):
-    todo_field = graphene.Int()
+    message = graphene.String()
 
     class Arguments:
         todo_id = graphene.Int(required=True)
@@ -101,7 +101,7 @@ class DeleteTodo(graphene.Mutation):
             raise Exception('Not permitted to delete')
 
         todo_data.delete()
-        return DeleteTodo(todo_field=todo_id)
+        return DeleteTodo(message="Todo deleted")
 
 
 class CreateLike(graphene.Mutation):
@@ -130,8 +130,29 @@ class CreateLike(graphene.Mutation):
         return CreateLike(user_field=user_data, todo_field=todo_data)
 
 
+class DeleteLike(graphene.Mutation):
+    message = graphene.String()
+
+    class Arguments:
+        todo_id = graphene.Int(required=True)
+
+    def mutate(self, info, todo_id):
+        user_data = info.context.user
+        todo_data = Todo.objects.get(id=todo_id)
+
+        if todo_data.posted_by != user_data:
+            raise Exception('Not permitted to unlike')
+
+        Like.objects.filter(
+            user_field=user_data,
+            todo_field=todo_data
+        ).delete()
+        return DeleteLike(message="Like deleted")
+
+
 class Mutation(graphene.ObjectType):
     create_todo = CreateTodo.Field()
     update_todo = UpdateTodo.Field()
     delete_todo = DeleteTodo.Field()
     create_like = CreateLike.Field()
+    delete_like = DeleteLike.Field()
