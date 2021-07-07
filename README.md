@@ -154,10 +154,11 @@ python manage.py runserver
 
 ## TODO
 
-    - [X] Add a todo search feature
-    - [] Add Tags assigned to Todo
-    - [] Add exisiting tags to todo
-    - [] Filter Todo list by Tags
-    - [] Add a line graph of todo count and completed todo per day
-    - [] Manage role who can view others todos
-    - [] Dockerize this app
+-   [x] Add a todo search feature
+-   [] Add Tags assigned to Todo
+-   [] Add exisiting tags to todo
+-   [] Filter Todo list by Tags
+-   [] Add a line graph of todo count and completed todo per day
+-   [] Manage role who can view others todos
+-   [] Dockerize this app
+-   [] [Make Django Production Ready](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment)
