@@ -64,7 +64,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
-    'https://jess-django-react-api.herokuapp.com',
+    'https://jess-django-react-app.herokuapp.com',
 )
 
 AUTHENTICATION_BACKENDS = [
