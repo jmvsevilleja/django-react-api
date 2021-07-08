@@ -1,7 +1,7 @@
 # DJANGO - REACT - APP - API
 
--   [Front end REACT link](https://www.jess-django-react-app.herokuapp.com)
--   [Backend end API link](https://www.jess-django-react-api.herokuapp.com)
+-   [Front end REACT link](https://jess-django-react-app.herokuapp.com)
+-   [Backend end API link](https://jess-django-react-api.herokuapp.com/graphql/)
 
 ## Features
 
@@ -154,11 +154,11 @@ python manage.py runserver
 
 ## TODO
 
--   [x] Add a todo search feature
--   [] Add Tags assigned to Todo
--   [] Add exisiting tags to todo
--   [] Filter Todo list by Tags
--   [] Add a line graph of todo count and completed todo per day
--   [] Manage role who can view others todos
--   [] Dockerize this app
--   [] [Make Django Production Ready](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment)
+- [x] Add a todo search feature
+- [ ] Add Tags assigned to Todo
+- [ ] Add exisiting tags to todo
+- [ ] Filter Todo list by Tags
+- [ ] Add a line graph of todo count and completed todo per day
+- [ ] Manage role who can view others todos
+- [ ] Dockerize this app
+- [ ] [Make Django Production Ready](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment)
